@@ -1,0 +1,199 @@
+{% load static %}
+{% include 'common/adminlink.html' %}
+
+<body class="g-sidenav-show bg-gray-100">
+
+  <!-- Sidebar -->
+  {% include 'common/adminaside.html' %}
+  <!-- Main Content -->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="#">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Patient Search</li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container-fluid py-2">
+      <div class="ms-3">
+        <h3 class="mb-0 h4 font-weight-bolder">Patient Search</h3>
+        <p class="mb-4">Find patient records by ID, phone, bed number, or department.</p>
+      </div>
+
+      <!-- Search Box & Table -->
+      <div class="v-container" style="width:85vw; margin-top:2.5rem; margin-left: -0.5rem; ">
+        <!-- Header -->
+        <div class="grid-header mb-3">
+          <div>
+            <h4 class="mb-0 text-primary">Search Patients</h4>
+            <small class="text-muted">Enter patient details to search</small>
+          </div>
+        </div>
+
+        <!-- Search Inputs -->
+        <div class="search-box" style="display:flex; gap:0.5rem; align-items:center;">
+          <select id="searchType" style="width:300px; padding:0.5rem; border-radius:5px; border:1px solid #ccc;">
+            <option value="id">Patient ID</option>
+            <option value="bedNo">Bed Number</option>
+            <option value="phone">Phone Number</option>
+            <option value="department">Department</option>
+          </select>
+
+          <input type="text" id="searchInput" placeholder="Enter search term..."
+            style="flex:0.6; padding:0.5rem; border-radius:5px; border:1px solid #ccc;">
+
+          <button class="btn btn-primary"  id="searchPatient"
+            style="padding:0.5rem 1rem; margin-top: 10px;">Search</button>
+        </div>
+
+
+        <!-- Table -->
+        <div class="grid-area overflow-auto" style="height:70vh;">
+          <table class="table table-hover align-middle bg-white shadow rounded">
+            <thead class="sticky-top" style="background-color:#e91e63;">
+              <tr>
+                <th style="color:black;">Patient ID</th>
+                <th style="color:black;">Name</th>
+                <th style="color:black;">Disease</th>
+                <th style="color:black;">Department</th>
+                <th style="color:black;">Phone</th>
+                <th style="color:black;">Bed No</th>
+                <th style="color:black;">Date of Admission</th>
+                <th style="color:black;">Date of Discharge</th>
+
+              </tr>
+            </thead>
+            <tbody id="searchResults">
+              {% for patient in patients %}
+              <tr>
+                <td>{{patient.id}}</td>
+                <td>{{patient.name}}</td>
+                <td>{{patient.disease}}</td>
+                <td>{{patient.department}}</td>
+                <td>{{patient.phone}}</td>
+                <td>{{patient.bedno}}</td>
+                <td>{{patient.indate}}</td>
+                <td>
+                  {% if patient.outdate == None %}
+                  <p style="color: green;"><b>Active</b></p>
+                  {% else %}
+                  <p style="color:black;">{{ patient.outdate }}</p>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+
+  <script>
+    $(document).ready(function () {
+
+      $("#searchPatient").click(function(){
+        const type = document.getElementById("searchType").value;
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const resultArea = document.getElementById("searchResults");
+        resultArea.innerHTML = '';
+
+        $.ajax({
+          url:"{% url 'searchPatient' %}",
+          type:"GET",
+          data:{
+            column : type,
+            filterElement:query,
+          },
+          success:function(respose){
+            data = respose.data;
+
+           
+              $.each(data,(index,el)=>{
+                let outdate = el.outdate == "None" ? "Active" : el.outdate;
+                 $("#searchResults").append(
+              `
+              <tr>
+                <td style="color:black;"> ${el.id} </td>
+                <td style="color:black;"> ${el.name} </td>
+                <td style="color:black;"> ${el.disease} </td>
+                <td style="color:black;"> ${el.department} </td>
+                <td style="color:black;"> ${el.phone} </td>
+                <td style="color:black;"> ${el.bedno} </td>
+                <td style="color:black;"> ${el.indate} </td>
+                <td style="color:black;"> ${outdate} </td>
+                </tr>
+              `
+                 );
+
+              })
+             
+           
+
+          },
+          error:function(respose){
+            console.log("facing error from Django server")
+          }
+        }); // ajax end
+      }); // functiomn end (search pATIENT)
+        
+      
+
+
+      // end of global document jquery area
+    });
+
+
+
+
+  </script>
+
+  <style>
+    .v-container {
+      background: #f8f9fa;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .grid-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #ffe4ec;
+    }
+
+    .table td,
+    .table th {
+      padding-left: 1rem;
+    }
+
+    .sticky-top {
+      top: 0;
+    }
+
+    .search-box select,
+    .search-box input {
+      font-size: 0.9rem;
+    }
+
+    .search-box button {
+      font-size: 0.9rem;
+    }
+  </style>
+</main>
+</body>
+
+</html>

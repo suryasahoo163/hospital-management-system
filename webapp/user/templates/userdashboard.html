@@ -1,0 +1,181 @@
+{% load static %}
+{% include 'common/userlink.html' %}
+
+<body class="g-sidenav-show  bg-gray-100">
+  {% include 'common/useraside.html' %}
+  <!--  MAIN -->
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
+       
+      </div>
+    </nav>
+
+    <!-- End Navbar -->
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
+          <p class="mb-4">
+            Check the Daily pending tasks.
+          </p>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">My Profile</p>
+                  <h4 class="mb-0"><button onclick="toggleUserData()" style="background-color: white; color: rgb(33, 64, 64); border: 0px;">View</button></h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+           <hr class="dark horizontal my-0">
+            
+          </div>
+        </div>
+        
+       
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Total Appointments Remaining</p>
+                  <h4 class="mb-0">{{ ap.pending }}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+           
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Total Appointments Completed</p>
+                  <h4 class="mb-0">{{ ap.completed}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+           
+          </div>
+        </div>
+
+      </div>
+     </div>
+
+<!-- user can see and edit their data -->
+     <div id="userData" style="display: none; margin: auto; width: 70%; background-image: linear-gradient(rgb(255, 198, 198)rgb(219, 237, 244)e); text-align: center; margin-top: 30px;box-shadow:1px 1px 3px 2px rgb(50, 50, 0); padding: 50px; border-radius: 30px;"> 
+      <h3 style="color: blueviolet;"> USER DATA</h3>
+      <h5 style="color: black; display: inline;">User Id    : </h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{userData.id}}</p><br>
+      <h5 style="color: black; display: inline;">User Name  :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{userData.name}}</p><br>
+      <h5 style="color: black; display: inline;">User Phone :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{userData.phone}}</p><br>
+      <h5 style="color: black; display: inline;">User Email :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{userData.email}}</p><br>
+      
+      <button onclick="toggleCP()" style="background-color: azure ;border-radius: 3px; color: rgb(26, 47, 48); font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Change Password</button>
+      <div id="changeUserPass" style="display: none; margin: auto; width: fit-content;">
+        <form id="form">
+          {% csrf_token %}
+          <br>
+          <input type="text" placeholder="Enter Your Current Password" id = "pass"><br><br>
+          <input type="text" placeholder="Enter Your New Password" id="npass">
+          <br><br>
+          <input type="text" placeholder="Retype Your New Password" id="rpass"><br><br>
+          <p id="incorrectMatch" style="color: red; display: none; font-weight: bold;">Password and Retype Password must be same</p>
+          <p id="incorrectPassword" style="color: red; display: none; font-weight: bold;" >Your Previous Password is incorrect</p>
+          <button type="reset" style="font-weight:bold; width: 120px;border-radius: 2px; font-family: 'Courier New', Courier, monospace; color: black; background-color: rgb(255, 99, 99);">Reset</button>
+          <button type="button" onclick="changePW()" style="font-weight:bold; width: 120px;border-radius: 2px; font-family: 'Courier New', Courier, monospace; color: black; background-color: rgb(0, 254, 47);">Submit</button>
+        </form>
+      </div>
+      <form action="{% url 'uploadDP' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <br>
+      <br>
+      <h1 style="color: blue; font-size: larger; font-weight: bold;">Update Profile Picture</h1>
+      
+      <input type="file" name="dp" id="">
+      <button type="submit">Upload</button>
+    </form>
+
+     </div>
+ </main>
+
+<script>
+  function toggleCP(){
+    let cpd = document.getElementById("changeUserPass");
+    if (cpd.style.display=="none"){
+      cpd.style.display="block";
+    }
+    else{
+      cpd.style.display="none";
+    }
+  }
+
+  function toggleUserData(){
+    let cpd = document.getElementById("userData");
+    if (cpd.style.display=="none"){
+      cpd.style.display="block";
+    }
+    else{
+      cpd.style.display="none";
+    }
+  }
+  
+  function changePW(){
+    if ($("#npass").val() === $("#rpass").val()){
+      $("#incorrectMatch").hide();
+      // ajax change
+      $.ajax({
+        type:"GET",
+        url : "{% url 'changeUserPassword' %}",
+        data:{
+          newpass:$("#npass").val(),
+          oldpass :$("#pass").val(),
+        },
+        success:function(response){
+          message = response.message;
+          if(message!="done"){
+            $("#incorrectPassword").show();
+            
+          }
+          else{
+            $("#incorrectPassword").hide();
+            window.alert("Password successfully changed.");
+            $("#changeUserPass").hide();
+            $("#form")[0].reset();
+          }
+        },
+      });
+    }
+    else{
+      
+      $("#incorrectMatch").show();
+    }
+  }
+</script>
+ 
+</body>
+
+</html>

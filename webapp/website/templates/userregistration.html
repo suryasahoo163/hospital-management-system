@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        User Registration
+    </title>
+</head>
+<style>
+    body {
+        background-image: url("{% static 'images/hospitalbg_login.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+
+    form {
+        width: 30%;
+        display: block;
+        position: relative;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.6);
+        margin: auto;
+        margin-top: 80px;
+        border-radius: 20px;
+        border-top: 5px solid rgb(104, 166, 11);
+        padding: 20px;
+    }
+
+    h1 {
+        display: block;
+        margin: auto;
+        width: fit-content;
+        color: green;
+        position: relative;
+        font-size: 50px;
+    }
+
+    input,
+    Button {
+        display: block;
+        width: 90%;
+        position: relative;
+        height: 40px;
+        margin: auto;
+        margin-bottom: 20px;
+        font-size: larger;
+
+    }
+
+    label {
+
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    a {
+        font-size: large;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+</style>
+
+<body>
+
+    <form action="" method="POST" id="form">
+
+        {% csrf_token %}
+
+        <img src="{% static 'images/Surya Hospital Logo.jpg' %}" alt=""
+            style="width: 50px; display: block; margin: auto; position: relative;">
+        <h1>User Registration</h1>
+        <label for="name">User Name:</label>
+        <input type="text" name="name">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" name="phone" id="phone">
+        <label for="email">Email ID:</label>
+        <input type="text" name="email" id="email">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+        <label for="password">Confirm Password:</label>
+        <input type="password" id="Cpassword">
+        <p style="display: none; color: red;">Confirm password must be same as password</p>
+
+        <button type="reset">Reset</button>
+        <button type="button" onclick="submitForm()">Register</button>
+
+    </form>
+
+
+    <div id="errorBox"
+        style="height: 30px; width: 20%; background: white;
+            box-shadow: 2px 2px 2px black;
+            color: rgb(159, 0, 0);
+            display: none;
+            position: relative;
+           z-index: 2;
+            margin: auto;
+            border-radius: 5px;
+            bottom:1px; text-align: center; font-weight: bold; font-size: large; padding-top: 5px; align-self: center; margin-top: 10px;">
+    </div>
+
+
+</body>
+
+<script>
+    function submitForm() {
+        pass = document.getElementById("password").value;
+        cpass = document.getElementById("Cpassword").value;
+        if (pass.trim() === cpass.trim()) {
+             p = document.getElementsByTagName("p")[0];
+            p.style.display = "none";
+            phone = document.getElementById("phone").value;
+            email = document.getElementById("email").value;
+
+            // checking for availability
+            $.ajax({
+                type: "GET",
+                url: "{% url 'validateEP' %}",
+                data: {
+                    phone: phone,
+                    email: email,
+                },
+                success: function (response) {
+                    let message = response.message;
+                    if (message == "allow") {
+                        // allow code
+                        
+                        $("#form").attr("action","{% url 'userRegistration' %}");
+                        $("#form").submit();
+                    }
+                    else {
+                        $("#errorBox").text(message);
+                        $("#errorBox").css("display", "block");
+                    }
+
+                },
+                error: function (response) {
+                    console.log(response.message);
+
+                }
+            });
+        }
+        else {
+            p = document.getElementsByTagName("p")[0];
+            p.style.display = "block";
+
+        }
+
+    }
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</html>

@@ -1,0 +1,137 @@
+{% load static %}
+{% include 'common/adminlink.html' %}
+
+<body class="g-sidenav-show  bg-gray-100">
+  {% include 'common/adminaside.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Users</li>
+          </ol>
+        </nav>
+       
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder">Users</h3>
+          <p class="mb-4">
+            Check the Users details, Login, and other datails.
+          </p>
+        
+      </div>
+      
+
+
+
+
+      <!-- USers Details shown area -->
+     <!-- Users List Container -->
+<div class="v-container mt-1" style="height:90vh; margin-top:1rem; width:85vw;">
+  <div class="grid-header mb-3">
+    <div>
+      <h4 class="mb-0 text-primary">Users</h4>
+      <small class="text-muted">Manage users record</small>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="grid-area overflow-auto">
+    <table class="table table-hover align-middle bg-white shadow rounded" style="text-align: center;">
+      <thead class="bg-primary text-white sticky-top">
+        <tr>
+          <th style="color:black;">ID</th>
+          <th style="color:black;">Name</th>
+          <th style="color:black;">Join Date</th>
+          <th style="color:black;">Phone Number</th>
+          <th style="color:black;">E-mail Address</th>
+          
+        </tr>
+      </thead>
+      <tbody id="usersList">
+        <!-- Demo user row added dynamically via JS -->
+         {% for user in users %}
+        <tr>
+          <td style="color:black ;">{{ user.id}}</td>
+          <td style="color:black ;">{{ user.name}}</td>
+          <td style="color:black ;">{{ user.joindate}}</td>
+          <td style="color:black ;">{{ user.phone}}</td>
+          <td style="color:black ;">{{ user.email}}</td>
+        
+        </tr>
+
+         {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<style>
+.v-container {
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e7f1ff;
+}
+
+.sticky-top {
+  top: 0;
+}
+/* Existing styles */
+.v-container {
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e7f1ff;
+}
+
+.sticky-top {
+  top: 0;
+}
+
+/* Add padding-left to table cells */
+.table td, .table th {
+  padding-left: 1rem; /* adjust as needed */
+}
+</style>
+
+ 
+
+</body>
+
+</html>

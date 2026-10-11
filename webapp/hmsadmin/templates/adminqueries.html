@@ -1,0 +1,240 @@
+{% load static %}
+{% include 'common/adminlink.html' %}
+
+<body class="g-sidenav-show bg-gray-100">
+  {% include 'common/adminaside.html' %}
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl"
+      id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
+              Users Query
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder">Users Query</h3>
+          <p class="mb-4">Check the Users Query here and Respond.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- users query place -->
+    <div class="v-container mt-1" style="height:90vh; width:85vw;">
+      <div class="grid-header mb-3">
+        <div>
+          <h4 class="mb-0 text-primary">Users Query</h4>
+          <small class="text-muted">Respond to Users Query</small>
+        </div>
+      </div>
+
+      <div class="grid-area overflow-auto">
+        <table class="table table-hover align-middle bg-white shadow rounded w-100">
+          <thead class="bg-primary text-white sticky-top">
+            <tr>
+              <th style="color: black;">Name</th>
+              <th style="color: black;">Phone</th>
+              <th style="color: black;">Age</th>
+              <th style="color: black;">Gender</th>
+              <th style="color: black;">Query</th>
+              <th style="color: black;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="queryTableBody">
+            {% for data in queries %}
+            <tr>
+              <td>{{ data.name }}</td>
+              <td>{{ data.phone }}</td>
+              <td>{{ data.age }}</td>
+              <td>{{ data.gender }}</td>
+              <td>{{ data.query }}</td>
+              <td>
+                <button class="respond-btn btn btn-sm btn-outline-primary" data-id="{{ data.id }}">
+                  Respond
+                </button>
+              </td>
+            </tr>
+
+            <!-- Hidden response area -->
+            <tr id="response-row-{{ data.id }}" style="display:none;">
+              <td colspan="6">
+                <div class="response-area p-2 border rounded">
+                  <form action="{% url 'send_response' data.id %}" method="POST">
+                    {% csrf_token %}
+                  <strong>Question:</strong> {{ data.query }}
+                    <textarea id="answer-{{ data.id }}" class="form-control mt-2"
+                    placeholder="Type your answer..." name = 'answer'></textarea>
+                    <div class="mt-2">
+                      <button class="send-btn btn btn-success btn-sm" type="submit">Send</button>
+                      <button class="clear-btn btn btn-secondary btn-sm" type="reset">Clear</button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ✅ Working JS -->
+
+
+    <!-- ✅ Styling -->
+    <style>
+      .respond-btn {
+        border: 1.5px solid #e91e63;
+        color: #e91e63;
+        border-radius: 6px;
+        padding: 5px 12px;
+        background: transparent;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .respond-btn:hover {
+        background-color: #e91e63;
+        color: white;
+      }
+
+      .response-area {
+        background-color: #fff0f5;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #e91e63;
+      }
+
+      .response-area textarea {
+        width: 100%;
+        border: 1px solid #e91e63;
+        border-radius: 6px;
+        padding: 8px;
+        resize: none;
+        height: 90px;
+        margin-top: 5px;
+      }
+
+      .send-btn {
+        background-color: #e91e63;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 6px 14px;
+        font-weight: 500;
+        margin-right: 10px;
+      }
+
+      .send-btn:hover {
+        background-color: #d81b60;
+      }
+
+      .clear-btn {
+        border: 1.5px solid #e91e63;
+        color: #e91e63;
+        background: transparent;
+        border-radius: 5px;
+        padding: 6px 14px;
+        font-weight: 500;
+      }
+
+      .clear-btn:hover {
+        background-color: #fce4ec;
+      }
+
+      .v-container {
+        background: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      }
+
+      .table-hover tbody tr:hover {
+        background-color: #e7f1ff;
+      }
+
+      .sticky-top {
+        top: 0;
+      }
+    </style>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  // Ensure jQuery runs after page load
+  $(document).ready(function() {
+
+    // ✅ Toggle response row
+    $(document).on("click", ".respond-btn", function () {
+      const id = $(this).data("id");
+      console.log("Toggling row for ID:", id);  // Debug log
+      $(`#response-row-${id}`).toggle();  // Show/hide the row
+    });
+
+  });
+
+  // ✅ Clear response box
+  function clearResponse(id) {
+    $(`#answer-${id}`).val("");
+  }
+
+  // ✅ Send response (will work if toggle works)
+  function sendResponse(id) {
+    const responseText = $(`#answer-${id}`).val().trim();
+    if (responseText === "") {
+      alert("Please type a response before sending.");
+      return;
+    }
+
+   $.ajax({
+    url: "/send_response/${id}/",           // correct dynamic URL
+    type: "POST",                           // use POST
+    data: { response: responseText },       // simple form data
+    headers: { "X-CSRFToken": getCookie("csrftoken") }, // Django CSRF token
+
+    success: function (response) {
+      alert("Response sent successfully!");
+      $(`#response-row-${id}`).hide();
+      console.log(response);
+    },
+    error: function (responseText) {
+      console.log(responseText);
+      alert("Error sending response!");
+    }
+  });
+  }
+
+  // ✅ CSRF token helper
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
+
+</body>
+</html>

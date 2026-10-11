@@ -1,0 +1,181 @@
+
+{% load static %}
+
+{% include 'common/adminlink.html' %}
+
+<body class="g-sidenav-show  bg-gray-100">
+  {% include './common/adminaside.html' %}
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+          </ol>
+        </nav>
+       
+      </div>
+    </nav>
+    <!-- End Navbar -->
+     
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
+          <p class="mb-4">
+            Check the Hospital details, Doctors, Patients and Users.
+          </p>
+        </div>
+       
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">View Profile</p>
+                  <h4 class="mb-0"><Button onclick="showData()" style="border: 0px; background-color: white; color: black; ">View</Button></h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+           
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Doctors</p>
+                  <h4 class="mb-0">{{data.doctors}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+           <hr class="dark horizontal my-0">
+            
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+                  <h4 class="mb-0">{{data.users}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">person</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            
+          </div>
+        </div>
+        
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Today's Patients</p>
+                  <h4 class="mb-0">{{data.patients}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">leaderboard</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            
+          </div>
+        </div>
+
+        
+        <div class="col-xl-3 col-sm-6"  style="margin-top: 20px;">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">Appointments Remaining</p>
+                  <h4 class="mb-0">{{data.app}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+           
+          </div>
+        </div>
+
+        
+        
+
+        <div class="col-xl-3 col-sm-6" style="margin-top: 20px;">
+          <div class="card">
+            <div class="card-header p-2 ps-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <p class="text-sm mb-0 text-capitalize">queries Remaining</p>
+                  <h4 class="mb-0">{{data.queries}}</h4>
+                </div>
+                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                  <i class="material-symbols-rounded opacity-10">weekend</i>
+                </div>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+           
+          </div>
+        </div>
+      </div>
+     
+ 
+ <div id="adminData" style="display: none; margin: auto; width: 70%; background-image: linear-gradient(rgb(255, 198, 198)rgb(219, 237, 244)e); text-align: center; margin-top: 30px;box-shadow:1px 1px 3px 2px rgb(50, 50, 0); padding: 40px; border-radius: 30px;"> 
+      <h3 style="color: blueviolet;"> ADMIN DATA</h3>
+      <h5 style="color: black; display: inline;">Admin Id    : </h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{adminData.id}}</p><br>
+      <h5 style="color: black; display: inline;">Admin Name  :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{adminData.name}}</p><br>
+     
+      <h5 style="color: black; display: inline;">Admin Phone :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{adminData.phone}}</p><br>
+      <h5 style="color: black; display: inline;">Admin Email :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">{{adminData.email}}</p><br>
+      <h5 style="color: black; display: inline;">Admin Salary :</h5> <p style="color: rgb(61, 61, 61); font-weight: bolder; display: inline-block;">₹{{adminData.salary}}</p><br>
+    
+      <form action="{% url 'adminDp' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <br>
+      <br>
+      <h1 style="color: blue; font-size: larger; font-weight: bold;">Update Profile Picture</h1>
+      
+      <input type="file" name="dp" id="">
+      <button type="submit">Upload</button>
+    </form>
+    
+    </div>
+ </main>
+ 
+
+
+ <script>
+  function showData(){
+    if (document.getElementById("adminData").style.display === "block"){
+      document.getElementById("adminData").style.display = "none";
+    }
+    else{
+      document.getElementById("adminData").style.display = "block";
+    }
+  }
+ </script>
+</body>
+
+</html>

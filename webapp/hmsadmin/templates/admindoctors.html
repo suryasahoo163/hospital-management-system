@@ -1,0 +1,541 @@
+{% load static %}
+{% include 'common/adminlink.html' %}
+
+<!-- CSS of doctor viewport -->
+
+<style>
+  .btn-bg {
+    background: linear-gradient(135deg, #007bff, #0056d2);
+  }
+
+  .v-container {
+    width: 90vw;
+    height: 90vh;
+    margin: auto;
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .grid-area {
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+
+  .card.h-100 {
+    min-height: 100%;
+  }
+
+  .card-img-top {
+    object-fit: cover;
+    height: 160px;
+  }
+
+  .visible-input {
+    background-color: #f9fafb;
+    border: 2px solid #ced4da;
+    border-radius: 0.4rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .visible-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    background-color: #fff;
+  }
+</style>
+
+<!-- add doctor modal css -->
+<style>
+  .visible-input {
+    background-color: #f9fafb;
+    border: 2px solid #ced4da;
+    border-radius: 0.4rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .visible-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    background-color: #fff;
+  }
+</style>
+
+<style>
+  #confirmOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  #confirmBox {
+    background: #ffffff;
+    width: 350px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: popup 0.25s ease-out;
+  }
+
+  #confirmBox h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #ff4141;
+  }
+
+  #confirmBox p {
+    font-size: 15px;
+    color: #080505;
+    margin: 15px 0;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+  }
+
+  #confirmBox button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  #confirmBox #yesBtn {
+background: #dc3545;
+    color: white;
+  }
+
+  #confirmBox .yesBtn:hover {
+     background: #c82333;
+  }
+
+  #confirmBox #noBtn {
+        background: #28a745;
+    color: white;
+    
+  }
+
+  #confirmBox #noBtn:hover {
+    background: #218838;
+   
+  }
+
+  @keyframes popup {
+    0% {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+
+
+  .visible-input {
+    background-color: #f9fafb;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    transition: all 0.25s ease-in-out;
+  }
+
+  .visible-input:focus {
+    background-color: #fff;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.2);
+  }
+
+  .modal-content {
+    border-radius: 1rem;
+  }
+
+  .modal-header {
+    background: linear-gradient(90deg, #007bff, #0dcaf0);
+  }
+</style>
+
+
+
+
+<body class="g-sidenav-show  bg-gray-100">
+
+  {% include 'common/adminaside.html' %}
+
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+      data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Doctors</li>
+          </ol>
+        </nav>
+
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder">Doctors</h3>
+          <p class="mb-4">
+            Check the Doctor details, Add, Edit and track doctors.
+          </p>
+        </div>
+
+        <!-- Doctors details part -->
+        <div class="v-container m-2" role="main" aria-label="Doctors container">
+          <!-- Header: title + Add Doctor button -->
+          <div class="grid-header">
+            <div>
+              <h4 class="mb-0 text-primary">Doctors</h4>
+              <small class="text-muted">Manage doctor records</small>
+            </div>
+
+            <!-- Add Doctor Button (you'll wire up the action) -->
+            <div>
+              <button id="addDoctorBtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#addDoctorModal">
+                <i class="bi bi-person-plus-fill"></i> Add Doctor
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid area -->
+          <div class="grid-area py-4">
+            <div class="container-fluid">
+              <div class="row g-4" id="doctorsGrid">
+                {% for doctor in allDoctors %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <div class="card h-100 shadow-sm border-2 rounded-4">
+                    <img src="https://via.placeholder.com/400x300?text=Doctor+Image" class="card-img-top rounded-top-4"
+                      style="height: 130px;" alt="{{ doctor.name }}">
+
+                    <div class="card-body d-flex flex-column">
+                      <h5 class="card-title text-center text-dark fw-semibold mb-2" id="name">{{ doctor.name }}</h5>
+                      <p class="text-muted mb-1" id="department"><strong>Department:</strong> {{ doctor.department }}
+                      </p>
+                      <p class="text-muted mb-1" id="email"><strong>Email:</strong> {{ doctor.email }}</p>
+                      <p class="text-muted mb-1" id=""><strong>ID:</strong> {{ doctor.id }}</p>
+                      <p class="text-muted mb-1" id="phone"><strong>Phone:</strong> {{ doctor.phone }}</p>
+                      <p class="text-muted mb-1" id="salary"><strong>Salary:</strong> ₹{{ doctor.salary }}</p>
+                      <p class="text-muted mb-3" id=""><strong>Joined:</strong> {{ doctor.joindate }}</p>
+
+                      <div class="mt-auto d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-success w-100" onclick="editDoctor('{{ doctor.id }}')"
+                          data-bs-toggle="modal" data-bs-target="#editDoctorModal">
+                          <i class="bi bi-pencil-square"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger w-100" onclick="deleteDoctor('{{ doctor.id }}')">
+                          <i class="bi bi-trash"></i> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Doctor Add Modal -->
+
+          <div id="addDoctorModal" class="modal" aria-hidden="true" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <form id="doctorForm" class="needs-validation" method="POST" novalidate action="">
+                  {% csrf_token %}
+                  <div class="modal-header btn-primary text-white rounded-top-4">
+                    <h5 class="modal-title fw-semibold" id="doctorModalLabel">Add Doctor</h5>
+                    <button type="button" class="btn-close btn-close-white"></button>
+                  </div>
+
+                  <div class="modal-body bg-light">
+                    <input type="hidden" id="doctorId">
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Name</label>
+                      <input type="text" id="doctorName" class="form-control visible-input" name="name"
+                        placeholder="Enter full name" required>
+                      <div class="invalid-feedback">Please enter the doctor's name.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Department</label>
+                      <select type="text" id="department" class="form-control visible-input" name="department" required>
+                        {% for department in departments %}
+                        <option value={{department.id}}>{{department.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <div class="invalid-feedback">Department is required.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Email</label>
+                      <input type="email" id="newDoctoremail" class="form-control visible-input"
+                        placeholder="doctor@example.com" name="email" required>
+                      <div class="invalid-feedback">Enter a valid email address.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Phone</label>
+                      <input type="tel" id="newDoctorphone" class="form-control visible-input"
+                        placeholder="Enter 10-digit phone number" pattern="^[6-9]\d{9}$" name="phone" required>
+                      <div class="invalid-feedback" id="newInvalidPhone">Enter a valid 10-digit phone number.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Salary (₹)</label>
+                      <input type="number" id="salary" class="form-control visible-input" min="0" name="salary"
+                        placeholder="Enter salary amount" required>
+                      <div class="invalid-feedback">Please enter a valid salary.</div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer bg-light rounded-bottom-4">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="sendDoctorData">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor edit Modal--->
+          <div id="editDoctorModal" class="modal" aria-hidden="true" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <form id="editDoctorForm" class="needs-validation" novalidate method="POST">
+                  {% csrf_token %}
+                  <input type="text" id="doctorID" name="id" hidden>
+                  <div class="modal-header btn-primary text-white rounded-top-4">
+                    <h5 class="modal-title fw-semibold" id="doctorModalLabel">Edit Doctor</h5>
+                    <button type="button" class="btn-close btn-close-white"></button>
+                  </div>
+
+                  <div class="modal-body bg-light">
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Name</label>
+                      <input type="text" id="doctorNameRetrieved" class="form-control visible-input" name="name"
+                        required>
+                      <div class="invalid-feedback">Please enter the doctor's name.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Department</label>
+                      <select type="text" id="departmentNew" class="form-control visible-input" name="department"
+                        required>
+                        {% for department in departments %}
+                        <option value={{department.id}}>{{department.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <div class="invalid-feedback">Department is required.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Email</label>
+                      <input type="email" id="doctorEmail" class="form-control visible-input"
+                        placeholder="doctor@example.com" name="email" required>
+                      <div class="invalid-feedback">Enter a valid email address.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Phone</label>
+                      <input type="tel" id="DoctorPhoneRetrieved" class="form-control visible-input"
+                        pattern="^[6-9]\d{9}$" name="phone" required>
+                      <div class="invalid-feedback" id='retrievedValidPhone'>Enter a valid 10-digit phone number.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label fw-semibold">Salary (₹)</label>
+                      <input type="number" id="doctorSalary" class="form-control visible-input" min="0" name="salary"
+                        placeholder="Enter salary amount" required>
+                      <div class="invalid-feedback">Please enter a valid salary.</div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer bg-light rounded-bottom-4">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveDoctorData">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confirm dialogue -->
+          <div id="confirmBox" style="display:none; position:fixed; top:40%; left:40%; 
+background:white; padding:20px; border:1px solid #000; z-index:9999;">
+            <p id="confirmDeleteP">Do you really want to delete this doctor?</p>
+            <button id="yesBtn">Delete</button>
+            <button id="noBtn">Cancel</button>
+          </div>
+
+
+          <script>
+
+            $(document).ready(function () {
+
+
+              $("#doctorForm").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                  type: "GET",
+                  url: "{% url 'validateEF' %}",
+                  data: {
+                    phone: $("#newDoctorphone").val().trim(),
+                    email: $("#newDoctoremail").val().trim()
+                  },
+                  success: function (response) {
+
+                    let res = response.message;
+                    if (res === 'allow') {
+                      $("#doctorForm").attr("action", "{% url 'addDoctor' %}");
+                      $("#doctorForm")[0].submit();
+
+                    }
+                    else {
+                      window.alert(res)
+                    }
+                  },
+
+                });
+              });
+
+
+              $("#editDoctorForm").submit(function (e) {
+                e.preventDefault();
+                let validationId = $("#doctorID").val();
+
+                $.ajax({
+                  type: "GET",
+                  url: "{% url 'validateEFforID' %}",
+                  data: {
+                    id: validationId,
+                    phone: $("#DoctorPhoneRetrieved").val().trim(),
+                    email: $("#doctorEmail").val().trim()
+                  },
+                  success: function (response) {
+
+                    let res = response.message;
+                    window.alert("Doctor data updated successfully");
+                    if (res === 'allow') {
+                      $("#editDoctorForm").attr("action", "{% url 'editDoctor' %}");
+                      $("#editDoctorForm")[0].submit();
+
+                    }
+                    else {
+                      window.alert(res)
+                    }
+                  },
+
+                });
+              });
+
+
+              // global function of document ends
+            });
+
+            // delte doctor using doctor id
+            function deleteDoctor(id) {
+              document.getElementById("confirmBox").style.display = "block";
+              document.getElementById("confirmDeleteP").innerText = "Do you really want to delete this doctor (ID="+id+")?"
+              document.getElementById("yesBtn").onclick = function () {
+
+                document.getElementById("confirmBox").style.display = "none";
+                window.location.href = 'deleteDoctor/' + id;
+              };
+              document.getElementById("noBtn").onclick = function () {
+                document.getElementById("confirmBox").style.display = "none";
+
+              };
+            }
+
+
+
+
+            // edit doctor data modal works
+            function editDoctor(id) {
+
+              $.ajax({
+                url: "{% url 'fetchDoctorData' %}",
+                type: 'GET',
+                data: {
+                  id: id,
+                },
+                success: function (response) {
+                  let id = response.doctor.id;
+                  let name = response.doctor.name;
+                  let phone = response.doctor.phone;
+                  let email = response.doctor.email;
+                  let salary = response.doctor.salary;
+                  let department = response.doctor.department;
+
+
+
+                  // assignment
+                  $("#doctorID").val(id);
+                  $("#doctorNameRetrieved").val(name);
+
+                  $("#DoctorPhoneRetrieved").prop("disabled", false).val(phone);
+
+                  $("#doctorEmail").val(email);
+                  $("#doctorSalary").val(salary);
+                  $("#departmentNew").val(department).prop("selected", true).trigger("change");
+                  bh
+
+                  return true
+                },
+
+              });
+
+            };
+            // update doctor data in the backend 
+
+          </script>
+
+
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

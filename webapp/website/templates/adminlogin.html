@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Admin Login
+        </title>
+    </head>
+    <style>
+        body{
+            background-image: url("{% static 'images/hospitalbg_login.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+        form{
+            width: 30%;
+            display: block;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.6); 
+            margin: auto;
+            margin-top: 80px;
+            border-radius: 20px;
+            border-top: 5px solid rgb(104, 166, 11);
+            padding: 20px;
+        }
+        h1{
+            display: block;
+            margin: auto;
+            width: fit-content;
+            color: green;
+            position: relative;
+            font-size: 50px;
+        }
+        input, Button{
+            display: block;
+            width: 90%;
+            position: relative;
+            height: 40px;
+            margin: auto;
+            margin-bottom: 20px;
+            font-size: larger;
+
+        }
+        label{
+        
+            font-size: larger;
+            font-weight: bold;
+        }
+        a{
+            font-size: large;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+    </style>
+
+    </script>
+    <body>
+       
+        <form action="{% url 'adminAuth' %}" method ="POST">
+
+            {% csrf_token %}
+            
+            <img src="{% static 'images/Surya Hospital Logo.jpg' %}" alt="" style="width: 50px; display: block; margin: auto; position: relative;">
+            <h1>Admin Login</h1>
+            <label for="userid">Admin Id:</label>
+            <input type="text" name="adminId">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="">
+            <button type="reset">Reset</button>
+            <button type="submit">Login</button>
+            <br>
+            <a href="">Forgot Password? Click here...</a>
+            <br>
+            <br>
+           
+        </form>
+
+        {% for m in messages %}
+        {% if m.text %}
+        <div id="errorBox" style="height: 30px; width: 20%; background: white;
+            box-shadow: 2px 2px 2px black;
+            color: rgb(159, 0, 0);
+            display: block;
+            position: relative;
+           z-index: 2;
+            margin: auto;
+            border-radius: 5px;
+            bottom:1px; text-align: center; font-weight: bold; font-size: large; padding-top: 5px; align-self: center; margin-top: 10px;">
+    {{ m.text }}
+</div>
+
+        {% endif %}
+        {% endfor %}
+
+    </body>
+
+</html>

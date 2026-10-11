@@ -1,0 +1,122 @@
+{% load static %}
+
+{% include 'common/adminlink.html' %}
+<body class="g-sidenav-show bg-gray-100">
+
+  <!-- Sidebar -->
+  {% include 'common/adminaside.html' %}
+
+  <!-- Main Content -->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="#">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Doctor Session Logs</li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container-fluid py-2">
+      <div class="ms-3">
+        <h3 class="mb-0 h4 font-weight-bolder">Doctor Session Logs</h3>
+        <p class="mb-4">Check doctors' login and logout activity.</p>
+      </div>
+
+      <!-- Doctors Logs Table -->
+      <div class="v-container" style="height:90vh; margin-top:2rem; width:85vw; margin-left: -10px; ">
+        <div class="grid-header mb-3">
+          <div>
+            <h4 class="mb-0 text-primary">Doctors Session Logs</h4>
+            <small class="text-muted">Manage doctors' login history</small>
+          </div>
+        </div>
+
+        <div class="grid-area overflow-auto">
+          <table class="table table-hover align-middle bg-white shadow rounded">
+            <thead class="bg-primary text-white sticky-top" style="background-color: #e91e63 !important;">
+              <tr>
+                <th style="color:black;">Doctor ID</th>
+                <th style="color:black;">Doctor Name</th>
+                <th style="color:black;">Department</th>
+                <th style="color:black;">Login Date</th>
+                <th style="color:black;">Login Time</th>
+                <th style="color:black;">Logout Date</th>
+                <th style="color:black;">Logout Time</th>
+              </tr>
+            </thead>
+            <tbody id="doctorLogsList">
+                        <!-- Dynamic Rows -->
+                        {% for doctor in doctorLogData %}
+                        <tr>
+                            <td style="color: black;">{{ doctor.did.id}}</td>
+                            <td style="color: black;">{{ doctor.did.name}}</td>
+                            <td style="color: black;">{{ doctor.did.department}}</td>
+                            <td style="color: black;">{{ doctor.indate}}</td>
+                            <td style="color: black;">{{ doctor.intime}}</td>
+                            {% if doctor.outdate == None %}
+                            <td style="color: rgb(0, 196, 0); font-weight: bolder;">Active</td>
+                            {% else %}
+                            <td style="color: black;">{{ doctor.outdate}}</td>
+                            {% endif %}
+
+                            {% if doctor.outtime == None %}
+                            <td style="color: rgb(0, 196, 0); font-weight: bolder;">Active</td>
+                            {% else %}
+                            <td style="color: black;">{{ doctor.outtime}}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS Script -->
+
+
+  <!-- Page Style -->
+  <style>
+    .sticky-top {
+     
+      top: 0;
+    
+    }
+    .v-container {
+      background: #f8f9fa;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .grid-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #ffe4ec;
+    }
+
+    .table thead {
+      background-color: #e91e63 !important;
+    }
+
+    .table td,
+    .table th {
+      padding-left: 1rem;
+      
+    }
+  </style>
+</body>
+</html>

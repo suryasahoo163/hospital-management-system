@@ -1,0 +1,143 @@
+{% load static %}
+{% include 'common/userlink.html' %}
+
+<body class="g-sidenav-show  bg-gray-100">
+
+  {% include 'common/useraside.html' %}
+
+  <!--  MAIN -->
+  <!-- Form area - follows your v-container style and sizing -->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">History</li>
+          </ol>
+        </nav>
+      </div>
+    </nav>
+
+    <div class="container-fluid py-2">
+      <div class="v-container mt-1">
+        <div class="grid-header mb-3">
+          <h4>My History</h4>
+          <small>View all my appointments and patient details</small>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Patient Name</th>
+                <th>Phone</th>
+                <th>Appointment Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+
+              </tr>
+            </thead>
+            <tbody id="historyTable">
+              <!-- Dynamic rows here -->
+               {% for appointment in appointments %}
+               <tr>
+                <td>{{appointment.id}}</td>
+                <td>{{appointment.name}}</td>
+                <td>{{appointment.phone}}</td>
+                <td>{{appointment.date}}</td>
+                <td>{{appointment.reason}}</td>
+                {% if appointment.cdate == None %}
+                  <td style="font-weight: bold; color: green;">Active</td>
+                  {% else %}
+                  <td>{{appointment.cdate}}</td>
+                  {% endif %}
+                </td>
+               </tr>
+               {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <style>
+    .v-container {
+      background: #f8f9fa;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      margin: 1rem auto;
+      max-width: 95vw;
+    }
+
+    .grid-header h4 {
+      color: #e91e63;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .grid-header small {
+      color: #777;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: #e91e63;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 13px;
+      color: #333;
+    }
+
+    tbody tr:hover {
+      background-color: #fce4ec;
+    }
+
+    .btn-action {
+      border: 1.5px solid #e91e63;
+      color: #e91e63;
+      border-radius: 6px;
+      padding: 4px 10px;
+      background: transparent;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-action:hover {
+      background-color: #e91e63;
+      color: white;
+    }
+
+    .table-container {
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+  </style>
+  </main>
+
+</body>
+
+</html>

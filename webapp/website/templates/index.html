@@ -1,0 +1,435 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <!-- fa cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- bootstrap 4 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- jquary cdn -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!--css file-->
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  <title>Surya Hospital</title>
+</head>
+
+<body>
+  <!-- NAvigation bar -->
+  <nav class="navigation" id="navigation">
+    <!-- Logo -->
+    <img src="{% static 'images\Surya Hospital Horizontal Logo.jpg' %}" alt="" srcset="" class="nav-logo" />
+    <!-- NAvigation Buttons -->
+    <ul>
+      <a href="">
+        <li class="nav-btn">Home</li>
+      </a>
+      <a href="#about">
+        <li class="nav-btn">About Us</li>
+      </a>
+      <a href="#services">
+        <li class="nav-btn">Services</li>
+      </a>
+      <a href="#gallery">
+        <li class="nav-btn">Gallery</li>
+      </a>
+      <a href="#contact">
+        <li class="nav-btn">Contact Us</li>
+      </a>
+      <a href="#login">
+        <li class="nav-btn">login</li>
+      </a>
+    </ul>
+  </nav>
+  <!-- Front page -->
+  <div class="front">
+    <!-- Front page text -->
+    <div class="front-details">
+      <img src="{% static 'images/Surya Hospital Logo.jpg' %}" alt="" style="width: 200px; display: block; margin: auto" />
+      <h1 style="
+            color: rgb(4, 77, 77);
+            display: block;
+            margin: auto;
+            width: fit-content;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-decoration: none;
+          ">
+        Welcome to Surya Hospital
+      </h1>
+      <h3 style="
+            color: rgb(1, 134, 134);
+            display: block;
+            margin: auto;
+            width: fit-content;
+            margin-bottom: 20px;
+            font-weight: bold;
+          ">
+        We provide world class factilities and environment
+      </h3>
+      <h4 style="
+            color: rgb(3, 192, 192);
+            display: block;
+            margin: auto;
+            width: fit-content;
+            margin-bottom: 20px;
+            font-weight: bold;
+          ">
+        Hospital that feels like Home...
+      </h4>
+      <button style="
+            width: 120px;
+            height: 50px;
+            background-color: rgb(47, 255, 0);
+            border: 0px;
+            display: block;
+            margin: auto;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: large;
+            margin-top: 30px;
+          ">
+        <a href="#about" style="text-decoration: none; color: black">About</a>
+      </button>
+    </div>
+    <img src="{% static 'images/bg_image.png' %}" alt="" class="front-image" />
+  </div>
+
+  <a href="#navigation" class="goTop" style="
+        z-index: 1;
+        display: block;
+        position: fixed;
+        margin-left: auto;
+        margin-top: auto;
+        width: fit-content;
+        border-radius: 50%;
+        bottom: 30px;
+        right: 30px;
+      "><img src="{% static 'images/gotop.png' %}" alt="" style="display: block; position: relative; margin: auto; width: 70px; filter: drop-shadow(1px 1px  2px white);" /></a>
+
+  <!-- Log in area -->
+  <div class="login" id="login">
+    <h1>Login</h1>
+    <div>
+      <div class="login-btn">
+        <img src="{% static 'images/users.jpg' %}" alt="" />
+        <button onclick="login('user')">User Login</button>
+      </div>
+      <div class="login-btn">
+        <img src="{% static 'images/doctor.jpg' %}" alt="" />
+        <button onclick="login('doctor')">Doctor Login</button>
+      </div>
+      <div class="login-btn">
+        <img src="{% static 'images/admin.jpg' %}" alt="" />
+        <button onclick="login('admin')">Admin Login</button>
+      </div>
+    </div>
+  </div>
+  <!-- About section -->
+  <div class="about" id="about">
+    <h1>About Us</h1>
+    <div style="width: fit-content; display: block; margin: auto">
+      <img src="{% static 'images/about1 (2).png' %}" alt="" width="400px" style="float: left" />
+      <p style="display: inline; font-size: large">
+        Welcome to Surya Hospital, a trusted name in healthcare dedicated to
+        delivering compassionate, advanced, and affordable medical services
+        for everyone. Since our inception, we have been committed to providing
+        comprehensive healthcare under one roof — blending medical excellence
+        with a patient-centered approach. At Surya Hospital, we believe that
+        good health is the foundation of a happy life. Our team of experienced
+        doctors, skilled nurses, and caring staff work round the clock to
+        ensure every patient receives personalized attention and the highest
+        quality of care. Equipped with modern technology and state-of-the-art
+        facilities, we aim to make accurate diagnosis and effective treatment
+        accessible to all. From emergency care and specialized treatments to
+        preventive health checkups, Surya Hospital stands as a beacon of hope
+        and healing in the community. Our mission is not just to treat illness
+        but to promote wellness and empower individuals to lead healthier
+        lives. At Surya Hospital, your health and comfort are our top
+        priorities — because we care, every step of the way.
+      </p>
+    </div>
+    <br />
+    <div style="width: fit-content; display: block; margin: auto">
+      <img src="{% static 'images/about1 (1).png' %}" alt="" width="400px" style="float: right" />
+      <p style="display: inline; font-size: large">
+        At Surya Hospital, we take pride in offering the most advanced medical
+        technology and world-class facilities to ensure every patient receives
+        safe, accurate, and efficient care. Our hospital is equipped with
+        modern infrastructure and state-of-the-art equipment that meet
+        international standards, enabling our medical team to provide the
+        highest level of diagnosis and treatment. Our operation theatres are
+        designed with advanced surgical instruments and strict infection
+        control systems, ensuring precision and safety during every procedure.
+        The hospital also features a 24×7 emergency and trauma care unit,
+        fully equipped with modern life-support systems and continuous
+        monitoring facilities. To aid in accurate diagnosis, we have a
+        high-definition radiology and imaging center with digital X-ray,
+        ultrasound, and CT scan services, along with a fully automated
+        pathology laboratory that delivers fast and reliable results. For
+        critical patients, our ICU and NICU units are equipped with advanced
+        ventilators and real-time monitoring systems, providing intensive care
+        around the clock. We also offer 24-hour pharmacy and ambulance
+        services to ensure timely support during emergencies. Every patient
+        room and ward at Surya Hospital is designed with comfort and hygiene
+        in mind, creating a calm and healing environment. Through our modern
+        equipment, advanced technology, and compassionate service, Surya
+        Hospital strives to deliver excellence in healthcare and set new
+        standards in patient well-being.
+      </p>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="services" id="services">
+    <h1>Services</h1>
+
+    <img src="{% static 'images/services.png' %}" alt="" style="margin: auto; display: block; width: 85%; height: 1000px" />
+  </div>
+
+  <!-- Gallery -->
+  <div class="gallery" id="gallery">
+    <h1>Hospital Gallery</h1>
+    <!--  image gallery -->
+    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+    
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="3"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="4"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="5"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="6"></button>
+      <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="7"></button>
+    </div>
+
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/Gallery/1.jpg' %}" class="d-block w-100" alt="Image 1">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/2.jpg' %}" class="d-block w-100" alt="Image 2">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/3.jpg' %}" class="d-block w-100" alt="Image 3">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/4.jpg' %}" class="d-block w-100" alt="Image 4">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/5.jpg' %}" class="d-block w-100" alt="Image 5">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/6.jpg' %}" class="d-block w-100" alt="Image 6">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/7.jpg' %}" class="d-block w-100" alt="Image 7">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Gallery/8.jpg' %}" class="d-block w-100" alt="Image 8">
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+
+  </div>
+
+  <!-- Contact -->
+  <div class="contact" id="contact">
+    <h1>Contact Us</h1>
+    <!-- Contact form -->
+    <form method="POST" action="{% url 'userquery' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required />
+        <div id="nameError" class="error"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required />
+        <div id="phoneError" class="error"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
+        <div id="emailError" class="error"></div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" required />
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="female" value="Female" />
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="other" value="Other" />
+            <label class="form-check-label" for="other">Other</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="age" class="form-label">Age</label>
+        <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age" required />
+        <div id="ageError" class="error"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" id="address" name="address" rows="2" placeholder="Enter your address" required></textarea>
+        <div id="addressError" class="error"></div>
+      </div>
+
+      <div class="mb-3">
+        <label for="query" class="form-label">Query</label>
+        <textarea class="form-control" id="query" name="query" rows="3" placeholder="Write your query here" required></textarea>
+        <div id="queryError" class="error"></div>
+      </div>
+
+      <button type="reset" class="btn btn-secondary me-2">Reset</button>
+      <button type="submit" class="btn btn-primary" id="form-submit">
+        Submit
+      </button>
+    </form>
+
+    <div class="contact-address">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1874.5830546817162!2d86.19657917900537!3d20.00154190682442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a198b16262ca0e1%3A0x9ee82c10e32ef345!2sSHREE%20SAI%20HOSPITAL!5e0!3m2!1sen!2sin!4v1761131527251!5m2!1sen!2sin"
+        width="80%" height="400px" style="border: 0" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      <div class="container mt-4">
+        <h5><i class="fa fa-map-marker"> Address</i></h5>
+        <p>
+          Surya Hospital<br />
+          Kakatpur, Front of Mangala Temple<br />
+          Puri, Odisha - 752119
+        </p>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    All Rights are reserved &copy;Surya Hospital, Year 2025.
+  </footer>
+
+</body>
+<!-- Bootstrap JS Bundle -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // --- REGEX Patterns ---
+    const nameRegex = /^[A-Za-z\s\.\-]{2,50}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+    const phoneRegex = /^(?:\+91[\-\s]?|0)?[6-9]\d{9}$/;
+    const ageRegex = /^(?:1[01][0-9]|120|[1-9][0-9]?)$/;
+    const addressRegex = /^[A-Za-z0-9\s,.\-]{5,100}$/;
+    const queryRegex = /^.{5,500}$/; // at least 5 characters
+    $(".error").css("color","red");
+    // --- Function to validate field ---
+    function validateField(id, regex, errorMsg) {
+      let val = $(id).val().trim();
+      let errorDiv = $(id + "Error");
+      if (regex.test(val)) {
+        $(id).removeClass("invalid").addClass("valid");
+        errorDiv.text("");
+        return true;
+      } else {
+        $(id).removeClass("valid").addClass("invalid");
+        errorDiv.text(errorMsg);
+        return false;
+      }
+    }
+
+    // --- Live Validation on Keyup ---
+    $("#name").on("keyup blur", function () {
+      validateField("#name", nameRegex, "Enter a valid name (letters only).");
+    });
+
+    $("#email").on("keyup blur", function () {
+      validateField("#email", emailRegex, "Enter a valid email address.");
+    });
+
+    $("#phone").on("keyup blur", function () {
+      validateField(
+        "#phone",
+        phoneRegex,
+        "Enter a valid 10-digit phone number."
+      );
+    });
+
+    $("#age").on("keyup blur", function () {
+      validateField("#age", ageRegex, "Enter valid age (1-120).");
+    });
+
+    $("#address").on("keyup blur", function () {
+      validateField(
+        "#address",
+        addressRegex,
+        "Enter a valid address (min 5 characters)."
+      );
+    });
+
+    $("#query").on("keyup blur", function () {
+      validateField(
+        "#query",
+        queryRegex,
+        "Query must be at least 5 characters."
+      );
+    });
+
+    // --- Final Submit Validation ---
+    $("#myForm").on("submit", function (e) {
+      e.preventDefault();
+      if (
+        validateField("#name", nameRegex, "") &&
+        validateField("#email", emailRegex, "") &&
+        validateField("#phone", phoneRegex, "") &&
+        validateField("#age", ageRegex, "") &&
+        validateField("#address", addressRegex, "") &&
+        validateField("#query", queryRegex, "")
+      ) {
+        alert("✅ Form submitted successfully!");
+      } else {
+        alert("❌ Please correct the highlighted errors.");
+      }
+    });
+  });
+
+  function login(for_){
+    if (for_ == 'user'){
+      window.location.href="{% url 'userlogin' %}";
+    }
+    else if (for_ == 'doctor'){
+      window.location.href = "{% url 'doctorlogin' %}";
+    }
+    else if (for_ == 'admin') {
+    
+      window.location.href = "{% url 'adminlogin' %}";
+    }
+  }
+</script>
+
+</html>

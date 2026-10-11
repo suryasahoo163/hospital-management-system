@@ -1,0 +1,157 @@
+
+{% load static %}
+{% include 'common/doctorlink.html' %}
+
+<body class="g-sidenav-show  bg-gray-100">
+  {% include 'common/doctoraside.html' %}
+
+  <!--  MAIN -->
+
+<main
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    >
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl"
+        id="navbarBlur"
+        data-scroll="true"
+      >
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0">
+              <li class="breadcrumb-item text-sm">
+                <a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+              </li>
+              <li class="breadcrumb-item text-sm text-dark active">
+                Appointments
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </nav>
+
+      <!-- Page Title -->
+      <div class="container-fluid py-2">
+        <div class="row">
+          <div class="ms-3">
+            <h3 class="mb-0 h4 font-weight-bolder">Appointments</h3>
+            <p class="mb-4">Check and manage user appointments below.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointment Table -->
+      <div
+        class="v-container mt-1"
+        style="height: 85vh; margin-top: 1rem; width: 85vw"
+      >
+        <div class="grid-header mb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <h4 class="mb-0 text-primary">User Appointments</h4>
+            <small class="text-muted">Monitor and manage scheduled appointments</small>
+          </div>
+          
+        </div>
+        <div class="grid-area overflow-auto">
+          <table class="table table-hover align-middle bg-white shadow rounded w-100" style="text-align: center;">
+            <thead class="bg-primary text-white sticky-top">
+              <tr>
+                <th style="color: black">User ID</th>
+                <th style="color: black">Name</th>
+                <th style="color: black">Phone</th>
+                
+                <th style="color: black">Reason</th>
+                <th style="color: black">Appointment Date</th>
+                <th style="color: black">Close Date</th>
+              </tr>
+            </thead>
+            <tbody >
+              {% for appointment in appointments %}
+              <tr>
+              <td style="color: black; height: 10px;">{{ appointment.uid.id }}</td>
+              <td style="color: black; height: 10px;">{{ appointment.name }}</td>
+              <td style="color: black; height: 10px;">{{ appointment.phone }}</td>
+         
+              <td style="color: black; height: 10px;">{{appointment.reason}}</td>
+              <td style="color: black; height: 10px;">{{ appointment.date }}</td>
+              <td style="width: fit-content; height: 10px;" >
+                {% if appointment.cdate == None %}
+                <button style="color: rgb(203, 27, 0); border-radius: 5px; box-shadow: 1px 1px 1px 1px rgb(140, 140, 140); background-color: white; padding: 5px; width: 100px; font-weight: bold;" onclick="completeAppointment('{{appointment.id}}')">Close</button>
+                
+                {% endif %}
+              </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- JS Logic -->
+       <script>
+        function completeAppointment(id){
+          window.location.href = 'closeAppointment/'+id;
+        }
+       </script>
+
+      <style>
+        .v-container {
+          background: #f8f9fa;
+          border-radius: 0.5rem;
+          padding: 1rem;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .grid-header h4 {
+          color: #e91e63;
+          font-weight: 600;
+        }
+
+        .add-btn {
+          border: 1.5px solid #e91e63;
+          color: #e91e63;
+          border-radius: 6px;
+          padding: 6px 14px;
+          background: transparent;
+          font-weight: 500;
+          transition: 0.3s;
+        }
+
+        .add-btn:hover {
+          background-color: #e91e63;
+          color: white;
+        }
+
+        .table-hover tbody tr:hover {
+          background-color: #fff0f5;
+        }
+
+        .remove-btn {
+          border: 1.5px solid #e91e63;
+          color: #e91e63;
+          border-radius: 6px;
+          padding: 5px 12px;
+          background: transparent;
+          font-weight: 500;
+          transition: 0.3s;
+        }
+
+        .remove-btn:hover {
+          background-color: #e91e63;
+          color: white;
+        }
+
+        .sticky-top {
+          top: 0;
+        }
+      </style>
+
+    </main>
+ 
+</body>
+
+</html>

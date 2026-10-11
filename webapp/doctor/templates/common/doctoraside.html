@@ -1,0 +1,56 @@
+{% load static %}
+
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand px-4 py-3 m-0" target="_blank">
+        <img src="{% static 'img/Surya Hospital Logo.jpg' %}" class="navbar-brand-img" style=" width: 100px; height: 200px;" alt="main_logo">
+
+      </a>
+    </div>
+
+    <hr class="horizontal dark mt-0 mb-2">
+    <tr><img style="height: 80px; width: 80px; border-radius: 50%; display: block; margin: auto;" src="{{ddp}}" alt="AdminDp" srcset=""></tr>
+    <table style="display: block;margin: auto; width: fit-content; text-align: center; color: black;">
+      <tr><td style="text-align:end ; color: rgb(86, 86, 86); font-size: small;">ID:</td><td style="text-align: left; font-size: small;">{{doctorData.id}}</td></tr>
+      <tr><td style="text-align:end ; color: rgb(86, 86, 86); font-size: small;">Name:</td><td style="text-align: left; font-size: small;">Dr.{{doctorData.name}}</td></tr>
+    </table>
+    <hr class="horizontal dark mt-0 mb-2">
+
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+
+        <li class="nav-item">
+          <a class="nav-link   text-dark" href="{% url 'doctordashboard' %}">
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link   text-dark" href="{% url 'doctorappointments' %}">
+            <span class="nav-link-text ms-1">Appointments</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link   text-dark" href="{% url 'doctorpatients' %}">
+            <span class="nav-link-text ms-1">Patients</span>
+          </a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link   text-dark" href="{% url 'doctorsearch' %}">
+            <span class="nav-link-text ms-1">Search</span>
+          </a>
+        </li>
+        
+
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{% url 'doctorlogout' %}">
+            <span class="nav-link-text ms-1">Logout</span>
+          </a>
+        </li>
+      </ul>
+    
+    </div>
+  </aside>

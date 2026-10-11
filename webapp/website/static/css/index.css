@@ -1,0 +1,216 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    --base-color: rgb(47, 255, 0);
+}
+
+h1 {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    color: var(--base-color);
+    text-decoration: underline;
+    margin-top: 150px;
+    font-size: 50px;
+    font-weight: bolder;
+    margin-bottom: 50px;
+}
+
+.navigation {
+    height: 70px;
+    width: 100vw;
+    margin-top: 10px;
+    padding-left: 10px;
+    /* background-color: rgb(114, 255, 26); */
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+
+}
+
+.logo {
+    width: 30px;
+}
+
+.navigation ul {
+    display: block;
+
+    width: fit-content;
+    margin: 5px;
+    right: 0px;
+    margin-top: 20px;
+    margin-left: auto;
+}
+
+.nav-btn {
+    width: 120px;
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    font-size: large;
+    margin-right: 30px;
+    display: inline-block;
+    font-weight: bold;
+    border: 1px solid var(--base-color);
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+
+
+}
+
+.nav-btn:hover {
+    background-color: var(--base-color);
+    transition: 300ms;
+
+}
+
+.front {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+
+    height: 100%;
+
+    /* background-color: var(--base-color); */
+}
+
+.front-details {
+    display: block;
+    position: relative;
+    align-items: center;
+    left: 80px;
+    margin-top: 20px;
+}
+
+.front-image {
+    display: block;
+    position: relative;
+    width: 800px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: 20px;
+    filter: drop-shadow(5px 5px 15px var(--base-color));
+}
+
+
+.login {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    justify-content: space-between;
+}
+
+
+.login-btn {
+    margin-top: 40px;
+    width: 300px;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 2px 2px 10px var(--base-color);
+    margin-left: 80px;
+
+
+}
+
+.login-btn img {
+    width: 200px;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+}
+
+.login-btn Button {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 150px;
+    height: 50px;
+    top: -3%;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    box-shadow: 2px 2px 5px black;
+
+}
+
+.about {
+    display: block;
+    position: relative;
+    width: 90%;
+    margin: auto;
+    margin-top: 150px;
+
+}
+
+.about img {
+    margin-right: 20px;
+    margin-left: 20px;
+    box-shadow: 1px 1px 10px black;
+}
+
+.gallery {
+    display: block;
+    margin: auto;
+    width: fit-content;
+
+}
+
+
+.carousel {
+      max-width: 900px;
+      max-height: 500px;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .carousel-inner img {
+      width: max-content;
+      height: 500px;              /* fixed height */
+      object-fit: cover;          /* fill area, keep aspect ratio */
+    }
+
+.contact {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 95%;
+
+}
+
+.contact form {
+    display: inline-block;
+    margin-left: auto;
+    float: right;
+    width: 50%;
+    position: relative;
+}
+
+.contact-address {
+    display: inline-block;
+    margin-right: auto;
+    float: left;
+    width: 50%;
+    position: relative;
+    padding-left: 60px;
+}
+
+.footer {
+    height: 100px;
+    width: 100%;
+    background-color: black;
+    color: azure;
+    display: inline-block;
+    position: relative;
+    bottom: 0px;
+    margin-top: 30px;
+    align-content: center;
+}
